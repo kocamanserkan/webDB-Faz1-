@@ -1,0 +1,148 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="faz1.Site" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="vendors/MasterPage/masterCSS.css" rel="stylesheet" />
+    <script src="../Scripts/jquery-1.9.1.js"></script>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+
+    <style>
+        body {
+            background-image: url(vendors/images/map-bg.svg);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-color: #126cb1;
+            background-size: cover;
+        }
+
+        .float-right {
+            float: right !important;
+        }
+
+        .mb-5, .my-5 {
+            margin-bottom: 3rem !important;
+        }
+
+        .main-icon {
+            margin: 23px 26px;
+        }
+
+        .main-menu a {
+            margin-bottom: 30px;
+            margin-top: 9%;
+        }
+        .navbar-inverse .navbar-inner {
+            background-image: linear-gradient(to bottom, #212121, #212121);
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="navbar navbar-inverse nav">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand"  href="https://localhost:44316/UserDashboard.aspx">FAZ-1</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                        </ul>
+                        <div class="pull-right">
+                            <ul class="nav pull-right">
+                                <asp:HiddenField runat="server" ID="hdnUsername" />
+                                <li class="dropdown"><a href="#" id="userField" runat="server" class="dropdown-toggle" data-toggle="dropdown">Kullanıcı Adı <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a runat="server" style="height:20px" href="https://localhost:44316/login.aspx"><i class="icon-off"></i>Çıkış</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="area"></div>
+            <nav class="main-menu">
+                <ul>
+                    <li>
+                        <a href="https://localhost:44316/UserDashboard.aspx">
+                            <i class="icon-home icon-white main-icon"></i>
+                            <span class="nav-text">Kullanıcı Paneli
+
+                            </span>
+                        </a>
+
+                    </li>
+                    <li class="has-subnav">
+                        <a href="https://localhost:44316/TableOperations/MyTables.aspx">
+                            <i class=" icon-th-list icon-white main-icon"></i>
+                            <span class="nav-text">Tablo Oluştur
+                            </span>
+                        </a>
+                    </li>
+                    <li class="has-subnav">
+                        <a href="https://localhost:44316/TableOperations/TableDesigning.aspx">
+                            <i class="icon-wrench icon-white main-icon"></i>
+                            <span class="nav-text">Tablo Tasarım İşlemleri
+                            </span>
+                        </a>
+                    </li>
+                    <li class="has-subnav">
+                        <a href="https://localhost:44316/TableOperations/DataInput.aspx">
+                            <i class="icon-pencil icon-white main-icon"></i>
+                            <span class="nav-text">Tablo Veri Girişi
+                            </span>
+                        </a>
+                    </li>
+                    <li class="has-subnav">
+                        <a href="https://localhost:44316/TableOperations/DataEdit.aspx">
+                            <i class=" icon-edit icon-white main-icon"></i>
+                            <span class="nav-text">Tablo Veri Güncellemesi
+                            </span>
+                        </a>
+                    </li>
+                    <li class="has-subnav">
+                        <a href="https://localhost:44316/TableOperations/TableViewing.aspx">
+                            <i class="icon-zoom-in icon-white main-icon"></i>
+                            <span class="nav-text">Veri Görüntüleme
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="Çıkış Yap">
+                    <li>
+                        <a href="https://localhost:44316/Login.aspx">
+                            <i class="icon-off icon-white main-icon"></i>
+                            <span class="nav-text">Çıkış Yap
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="row-fluid">
+                <div class="span12">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+    <script src="../vendors/MasterPage/masterJS.js"></script>
+    <script>
+        hiddenVal = $('#hdnUsername').val();
+    </script>
+
+</body>
+</html>
