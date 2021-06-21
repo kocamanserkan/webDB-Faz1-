@@ -96,7 +96,7 @@
                                     <asp:TemplateField HeaderText="Düzen">
                                         <ItemTemplate>
                                             <asp:LinkButton CssClass="btn btn-warning" Text="Düzenle" runat="server" CommandName="Edit" />
-                                            <asp:LinkButton CssClass="btn btn-danger" OnClick="OnDelete" Text="Sil" runat="server" />
+                                            <asp:LinkButton OnClientClick="dellColumn()" CssClass="btn btn-danger" OnClick="OnDelete" Text="Sil" runat="server" />
                                         </ItemTemplate>
                                         <EditItemTemplate>
                                             <asp:LinkButton OnClientClick="return validateGrid(this)" CssClass="btn btn-success" Text="Güncelle" runat="server" CommandName="Update" />
@@ -134,7 +134,7 @@
                 <div runat="server" id="pnlFooter" visible="false" class="panel-footer">
                     <br />
 
-                    <asp:Button Style="float: right" Text="Tabloyu Sil" ID="btnDeleteTable" OnClick="btnDeleteTable_Click" CssClass="btn btn-danger" runat="server" />
+                    <asp:Button Style="float: right" OnClientClick="deleteTable()" Text="Tabloyu Sil" ID="btnDeleteTable" OnClick="btnDeleteTable_Click" CssClass="btn btn-danger" runat="server" />
                     <a href="#myModal" style="float: right; margin-right: 5px; padding: 9px;" role="button" class="btn btn-info" data-toggle="modal">Tabloya Kolon Ekle</a>
 
                     <br />
@@ -289,12 +289,17 @@
 
 
         }
+    
         function deleteTable() {
 
             return confirm('Tabloyu silmek üzeresiniz. Onayladığınız taktirde tablo içindeki veriler ile birlikte silinecektir.')
 
         }
+        function dellColumn() {
 
+            return confirm('Tablonun bir kolonunu silmek üzeresiniz. Kolon içerisindeki bilgiler ile birlikte silinecektir. Onaylıyor musunuz?')
+
+        }
         $('#txtNewColumnName').keyup(function () {
 
             $('span.error-keyup-1').hide();
