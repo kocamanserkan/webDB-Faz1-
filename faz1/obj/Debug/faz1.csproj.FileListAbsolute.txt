@@ -187,8 +187,9 @@ C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\pt-BR\Microsoft.Data.SqlClient.resou
 C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\ru\Microsoft.Data.SqlClient.resources.dll
 C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\zh-Hant\Microsoft.Data.SqlClient.resources.dll
-C:\Users\asus\Desktop\mavihub\faz1\faz1\obj\Debug\faz1.csproj.AssemblyReference.cache
 C:\Users\asus\Desktop\mavihub\faz1\faz1\obj\Debug\faz1.csproj.CoreCompileInputs.cache
 C:\Users\asus\Desktop\mavihub\faz1\faz1\obj\Debug\faz1.csproj.CopyComplete
 C:\Users\asus\Desktop\mavihub\faz1\faz1\obj\Debug\faz1.dll
 C:\Users\asus\Desktop\mavihub\faz1\faz1\obj\Debug\faz1.pdb
+C:\Users\asus\Desktop\mavihub\faz1\faz1\obj\Debug\faz1.csproj.AssemblyReference.cache
+C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\AjaxControlToolkit.dll

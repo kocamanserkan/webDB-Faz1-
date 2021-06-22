@@ -13,12 +13,14 @@
                 <div class="row-fluid">
                     <div class="span6">
                         <div class="cls-block offset3">
-                            <asp:FileUpload runat="server" ID="fileUploadBtn" />
+                            <asp:FileUpload runat="server" ID="FileUpload1" />
                               <asp:Button ID="btnOpen" OnClick="btnOpen_Click" ClientIDMode="static" Text="Open" CssClass="btn btn-success" runat="server" />
-                            <asp:Button  ID="btnClose" ClientIDMode="static" Text="Close" CssClass="btn btn-success" runat="server" />
 
-                            <asp:GridView ID="grdExcel" runat="server"></asp:GridView>
-
+                            <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+                            <br />
+                            <br />
+                            <asp:TextBox ID="txtTableName"  runat="server" />  
+                            <asp:Button Text="DB'ye Aktar" CssClass="btn" ID="importDB" OnClick="importDB_Click" runat="server" />
                         </div>
                     </div>
                     <div class="span6">

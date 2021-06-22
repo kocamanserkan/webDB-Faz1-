@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="faz1.Site" %>
+﻿<%@ Master Language="C#"  AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="faz1.Site" %>
 
 <!DOCTYPE html>
 
@@ -44,7 +44,8 @@
     </style>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1"  runat="server">
+         
         <div class="navbar navbar-inverse nav">
             <div class="navbar-inner">
                 <div class="container">
@@ -109,6 +110,13 @@
                         <a href="https://localhost:44316/TableOperations/DataEdit.aspx">
                             <i class=" icon-edit icon-white main-icon"></i>
                             <span class="nav-text">Tablo Veri Güncellemesi
+                            </span>
+                        </a>
+                    </li>
+                     <li class="has-subnav">
+                        <a href="https://localhost:44316/TableOperations/DataTransfer.aspx">
+                            <i class=" icon-random icon-white main-icon"></i>
+                            <span class="nav-text">Excel Veri Transferi
                             </span>
                         </a>
                     </li>

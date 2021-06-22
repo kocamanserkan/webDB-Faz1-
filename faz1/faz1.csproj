@@ -32,7 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=20.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.20.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
@@ -137,6 +140,7 @@
     <Content Include="Images\Update.gif" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="TableOperations\DataTransfer.aspx" />
     <Content Include="WebForm1.aspx" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -209,6 +213,13 @@
     </Compile>
     <Compile Include="TableOperations\DataInput.aspx.designer.cs">
       <DependentUpon>DataInput.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TableOperations\DataTransfer.aspx.cs">
+      <DependentUpon>DataTransfer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TableOperations\DataTransfer.aspx.designer.cs">
+      <DependentUpon>DataTransfer.aspx</DependentUpon>
     </Compile>
     <Compile Include="TableOperations\MyTables.aspx.cs">
       <DependentUpon>MyTables.aspx</DependentUpon>

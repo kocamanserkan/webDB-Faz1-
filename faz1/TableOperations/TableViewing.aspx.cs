@@ -224,5 +224,8 @@ namespace faz1.TableOperations
         {
             e.Row.Cells[0].Visible = false; // Hiding Entry ID from User
         }
+
+
+       
     }
 }

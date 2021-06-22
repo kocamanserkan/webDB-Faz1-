@@ -1,5 +1,8 @@
 {
-  "ExpandedNodes": [],
-  "SelectedNode": "\\faz1.sln",
+  "ExpandedNodes": [
+    "",
+    "\\faz1"
+  ],
+  "SelectedNode": "\\faz1\\WebForm1.aspx",
   "PreviewInSolutionExplorer": true
 }
