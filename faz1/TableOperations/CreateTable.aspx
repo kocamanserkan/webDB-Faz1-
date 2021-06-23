@@ -49,12 +49,7 @@
                             <div class="row-fluid">
                                 <label for="txttb">Tablo Adı*</label>
                                 <asp:TextBox ClientIDMode="static" MaxLength="40" ID="txtTableName" Width="250px" placeholder="Tablo Adı" CssClass="input-small" runat="server" />
-                                <%--<asp:RegularExpressionValidator 
-                                    ErrorMessage="Hatalı Tablo Adı" 
-                                     ForeColor="red"
-                                     ControlToValidate="txtTableName"
-                                     ValidationExpression="^[\p{L}_][\p{L}\p{N}@$#_]{0,127}$" 
-                                    runat="server" />--%>
+                              
                                 <hr />
                             </div>
                             <br />
@@ -75,7 +70,6 @@
                                                     <asp:ListItem Value="string" Text="Metin" />
                                                     <asp:ListItem Value="int" Text="Tamsayı" />
                                                     <asp:ListItem Value="decimal" Text="Ondalık" />
-                                                    <%--<asp:ListItem Value="date" Text="Tarih ve Saat" />--%>
                                                     <asp:ListItem Value="datetime" Text="Tarih ve Saat" />
                                                 </asp:DropDownList>
                                             </th>
@@ -174,7 +168,6 @@
     <script type="text/javascript">
 
 
-
         $('#btnOnayla').click(function () {
 
             var tableName = $('#txtTableName').val();
@@ -186,7 +179,6 @@
             }
 
         })
-
 
 
         $('#txtTableName').keyup(function () {
@@ -224,19 +216,11 @@
                 $(this).after('<span style="color:red" class="error error-keyup-1">Hatalı Kolon Adı </span>');
                 $('#btnAddColumn').attr('disabled', 'disabled')
                 $('#txtTableName').attr('disabled', 'disabled')
-                //$('#btnDeleteAllColumns').attr('disabled', 'disabled')
-                //$('#btnOnayla').attr('disabled', 'disabled')
-                //$('#btnEditGrid').attr('disabled', 'disabled')
-                //$('#btnDelGridCol').attr('disabled', 'disabled')
                 $('#gridPanel').attr('style', 'display:none')
 
             } else {
                 $('#btnAddColumn').removeAttr('disabled');
                 $('#txtTableName').removeAttr('disabled');
-                //$('#btnDeleteAllColumns').removeAttr('disabled');
-                //$('#btnOnayla').removeAttr('disabled');
-                //$('#btnEditGrid').removeAttr('disabled');
-                //$('#btnDelGridCol').removeAttr('disabled');
                 $('#gridPanel').removeAttr('style');
             }
 

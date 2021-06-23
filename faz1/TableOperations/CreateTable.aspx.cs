@@ -262,7 +262,6 @@ namespace faz1.TableOperations
 
             }
 
-
         }
 
         protected void grdMyTable_RowEditing1(object sender, GridViewEditEventArgs e)

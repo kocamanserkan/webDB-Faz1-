@@ -71,18 +71,6 @@ namespace faz1
                             delete_button.OnClientClick = "return confirm('Bu kaydı silmek istediğinden emin misin?')";
                             Container.Controls.Add(delete_button);
 
-                            /* Similarly add button for insert.
-                             * It is important to know when 'insert' button is added 
-                             * its CommandName is set to "Edit"  like that of 'edit' button 
-                             * only because we want the GridView enter into Edit mode, 
-                             * and this time we also want the text boxes for corresponding fields empty*/
-                            //ImageButton insert_button = new ImageButton();
-                            //insert_button.ID = "insert_button";
-                            //insert_button.ImageUrl = "~/images/insert.bmp";
-                            //insert_button.CommandName = "Edit";
-                            //insert_button.ToolTip = "Yeni Kayıt";
-                            //insert_button.Click += new ImageClickEventHandler(insert_button_Click);
-                            //Container.Controls.Add(insert_button);
 
                             break;
 
@@ -132,7 +120,7 @@ namespace faz1
                         Container.Controls.Add(cancel_button);
 
                     }
-                    else// for other 'non-command' i.e. the key and non key fields, bind textboxes with corresponding field values
+                    else
                     {
                         TextBox field_txtbox = new TextBox();
                         field_txtbox.ID = FieldName;
@@ -140,9 +128,6 @@ namespace faz1
                         field_txtbox.Attributes.Add("style", "width:auto");
                         
                        
-                        
-
-                        // if Inert is intended no need to bind it with text..keep them empty
                         if ((int)new Page().Session["InsertFlag"] == 0)
                             field_txtbox.DataBinding += new EventHandler(OnDataBinding);
                         Container.Controls.Add(field_txtbox);
@@ -159,12 +144,12 @@ namespace faz1
         #endregion
         #region Event Handlers
 
-        //just sets the insert flag ON so that we ll be able to decide in OnRowUpdating event whether to insert or update
+       
         protected void insert_button_Click(Object sender, EventArgs e)
         {
             new Page().Session["InsertFlag"] = 1;
         }
-        //just sets the insert flag OFF so that we ll be able to decide in OnRowUpdating event whether to insert or update 
+      
         protected void edit_button_Click(Object sender, EventArgs e)
         {
             new Page().Session["InsertFlag"] = 0;
@@ -194,7 +179,6 @@ namespace faz1
             }
 
         }
-
         #endregion
 
 
