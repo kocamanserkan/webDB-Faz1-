@@ -1,4 +1,5 @@
-﻿using iTextSharp.text;
+﻿using ClosedXML.Excel;
+using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
 using System;
@@ -137,11 +138,60 @@ namespace faz1.TableOperations
                 pnlDocumantary.Visible = false;
             }
         }
+
+
+
+        void ExcelNew()
+        {
+            DataTable dt = new DataTable(""+ddlSelectedTable.SelectedValue+"");
+            foreach (TableCell cell in grdTable.HeaderRow.Cells)
+            {
+                dt.Columns.Add(cell.Text);
+            }
+           
+            foreach (GridViewRow row in grdTable.Rows)
+            {
+                dt.Rows.Add();
+                for (int i = 0; i < row.Cells.Count; i++)
+                {
+                    if (row.Cells[i].Controls.Count > 0)
+                    {
+                        dt.Rows[dt.Rows.Count - 1][i] = (row.Cells[i].Controls[1] as Label).Text;
+                    }
+                    else
+                    {
+                        dt.Rows[dt.Rows.Count - 1][i] = row.Cells[i].Text;
+                    }
+                }
+            }
+
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                dt.Columns.Remove("entryID");
+                wb.Worksheets.Add(dt);
+                Response.Clear();
+                Response.Buffer = true;
+                Response.Charset = "";
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;filename="+ddlSelectedTable.SelectedValue+".xlsx");
+                using (MemoryStream MyMemoryStream = new MemoryStream())
+                {
+                    wb.SaveAs(MyMemoryStream);
+                    MyMemoryStream.WriteTo(Response.OutputStream);
+                    Response.Flush();
+                    Response.End();
+                }
+            }
+
+        }
+
+
         protected void btnSaveExcel_Click(object sender, EventArgs e)
         {
             try
             {
-                ExportGridToExcel();
+                //ExportGridToExcel();
+                ExcelNew();
             }
             catch (Exception)
             {
@@ -204,19 +254,7 @@ namespace faz1.TableOperations
 
         protected void btnGetScript_Click(object sender, EventArgs e)
         { 
-        //{
-        //    Server myServer = new Server("Server =.;");
-        //    Scripter scripter = new Scripter(myServer);
-        //    Database myAdventureWorks = myServer.Databases["akaStaj"];
-        //    Urn[] DatabaseURNs = new Urn[] { myAdventureWorks.Urn };
-        //    StringCollection scriptCollection = scripter.Script(DatabaseURNs);
-        //    string aa = "";
-        //    foreach (string script in scriptCollection)
-        //    {
-        //        aa += script + "\n";
-        //    }
-
-        //    string cc = aa;
+       
 
         }
 

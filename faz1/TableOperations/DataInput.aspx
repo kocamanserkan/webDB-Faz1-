@@ -37,6 +37,7 @@
     </div>
     <div class="span12 offset2" style="width: 75%">
         <div class="panel panel-primary ">
+            
             <div class="panel-heading">
                 <h2>Tablo Veri Girişi</h2>
             </div>

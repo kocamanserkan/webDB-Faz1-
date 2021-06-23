@@ -128,7 +128,7 @@
                 <div runat="server" id="pnlFooter" visible="false" class="panel-footer">
                     <br />
 
-                    <asp:Button Style="float: right" OnClientClick="deleteTable()" Text="Tabloyu Sil" ID="btnDeleteTable" OnClick="btnDeleteTable_Click" CssClass="btn btn-danger" runat="server" />
+                    <asp:Button Style="float: right" OnClientClick="return deleteTable()" Text="Tabloyu Sil" ID="btnDeleteTable" OnClick="btnDeleteTable_Click" CssClass="btn btn-danger" runat="server" />
                     <a href="#myModal" style="float: right; margin-right: 5px; padding: 9px;" role="button" class="btn btn-info" data-toggle="modal">Tabloya Kolon Ekle</a>
 
                     <br />

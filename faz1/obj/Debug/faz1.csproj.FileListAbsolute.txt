@@ -193,3 +193,11 @@ C:\Users\asus\Desktop\mavihub\faz1\faz1\obj\Debug\faz1.dll
 C:\Users\asus\Desktop\mavihub\faz1\faz1\obj\Debug\faz1.pdb
 C:\Users\asus\Desktop\mavihub\faz1\faz1\obj\Debug\faz1.csproj.AssemblyReference.cache
 C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\AjaxControlToolkit.dll
+C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\ClosedXML.dll
+C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\DocumentFormat.OpenXml.dll
+C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\ExcelNumberFormat.dll
+C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\System.IO.Packaging.dll
+C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\ClosedXML.pdb
+C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\ClosedXML.xml
+C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\DocumentFormat.OpenXml.xml
+C:\Users\asus\Desktop\mavihub\faz1\faz1\bin\ExcelNumberFormat.xml

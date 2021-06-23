@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -214,7 +215,7 @@ namespace faz1.TableOperations
             txt.ID = id;
             double widths = (100 / (placeHolder.Count + 0.3));
             txt.Width = 350;
-            //txt.Attributes.Add("style", "width:" + Convert.ToString(widths) + "px; margin-right:10px");
+          
             txt.MaxLength = 90;
             txt.Attributes.Add("style", "float:left; margin-right:0px");
             txt.Attributes.Add("placeholder", placeHolder[index - 1].ToString() +" "+pHForNull[index-1]);
@@ -233,13 +234,7 @@ namespace faz1.TableOperations
                     cmpINT.ControlToValidate = id;
                     cmpINT.ErrorMessage = "Lütfen Tam Sayı Giriniz";
                     cmpINT.Attributes.Add("style", "color:red;float:left;");
-
-                    //valINT.ControlToValidate = id;
-                    //valINT.ErrorMessage = "Lütfen sadece tam sayı girin";
-                    //valINT.ValidationExpression = (@"^[0-9]([.,][0-9]{1,3})?$");
-                    //valINT.Attributes.Add("style", "color:red;float:left;");
-                    //valINT.Display = ValidatorDisplay.Dynamic;
-                    //myPel.Controls.Add(valINT);
+                    
                     myPel.Controls.Add(cmpINT);
 
                     if (isNullableDT.Rows[index][0].ToString() == "NO")
@@ -274,12 +269,6 @@ namespace faz1.TableOperations
                     cmpINT.Attributes.Add("style", "color:red;float:left;");
                     myPel.Controls.Add(cmpINT);
 
-                    //valINT.ControlToValidate = id;
-                    //valINT.ErrorMessage = "İstenmeyen metin";
-                    //valINT.ValidationExpression = (@"^[a-zA-Z ]{0,80}$");
-                    //valINT.Attributes.Add("style", "color:red;float:left;");
-                    //myPel.Controls.Add(valINT);
-
                     if (isNullableDT.Rows[index][0].ToString() == "NO")
                     {
                         txt.Attributes.Add("required", "true");
@@ -296,12 +285,6 @@ namespace faz1.TableOperations
                     cmpINT.ErrorMessage = "Lütfen Tarih Giriniz (GG-AA-YYYY)/(YYYY-AA-GG)";
                     cmpINT.Attributes.Add("style", "color:red;float:left;");
                     myPel.Controls.Add(cmpINT);
-                    //valINT.ControlToValidate = id;
-                    //valINT.ErrorMessage = "Lütfen Tarih Giriniz (YYYY-MM-DD)";
-                    //valINT.ValidationExpression = (@"^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$");
-                    //valINT.Attributes.Add("style", "color:red;float:left;");
-                    //myPel.Controls.Add(valINT);
-
                     if (isNullableDT.Rows[index][0].ToString() == "NO")
                     {
                         txt.Attributes.Add("required", "true");
@@ -357,8 +340,6 @@ namespace faz1.TableOperations
                     saveData(GenerateInsertQuery(), ddlTables.SelectedValue);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alertMsg('Kayıt Eklendi','yes')", true);
                 }
-               
-               
                    
             }
             catch (Exception)
@@ -413,14 +394,11 @@ namespace faz1.TableOperations
                             {
                                 Query = Query + "null"+", ";
                             }
-
                            
                         }
 
                         break;
                     case "String":
-                    case "DateTime":
-                    case "Date":
                         if (((string)ParameterArray[i]).Contains("'"))
                         {
                             tempstr = ((string)ParameterArray[i]);
@@ -448,7 +426,41 @@ namespace faz1.TableOperations
                             else
                             {
                                 Query = Query + "null,";
+                            }
 
+                        }
+                        break;
+                    case "DateTime":
+                    case "Date":
+                        //DateTime dt = DateTime.ParseExact(ParameterArray[i].ToString(), "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                        if (((string)ParameterArray[i]).Contains("'"))
+                        {
+                            tempstr = ((string)ParameterArray[i]);
+                            ParameterArray[i] = ((string)ParameterArray[i]).Replace("'", "''");
+                            temp_index = i;
+                        }
+                        if (i == Table.Columns.Count - 2)
+                        {
+                            
+                            if (!string.IsNullOrEmpty(ParameterArray[i].ToString()))
+                            {
+                                Query = Query + "'" + ParameterArray[i] + "' ";
+                            }
+                            else
+                            {
+                                Query = Query + "null";
+                            }
+                        }
+                       
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(ParameterArray[i].ToString()))
+                            {
+                                Query = Query + "'" + ParameterArray[i] + "', ";
+                            }
+                            else
+                            {
+                                Query = Query + "null,";
                             }
                                
                         }

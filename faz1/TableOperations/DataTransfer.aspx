@@ -7,7 +7,7 @@
     <script src="../bootstrap/js/bootstrap.js"></script>
     <link href="../vendors/customCss.css" rel="stylesheet" />
 
-     
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -24,9 +24,9 @@
                             <asp:ListItem Text="Tablo Seçiniz" Value="1" />
                         </asp:DropDownList>
                     </div>
-                    
-                        <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
-<%--                        <asp:Button Text="Transfer Et" CssClass="btn" ID="btnTransfer" OnClick="btnTransfer_Click" runat="server" />--%>            
+
+                    <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
+                    <%--                        <asp:Button Text="Transfer Et" CssClass="btn" ID="btnTransfer" OnClick="btnTransfer_Click" runat="server" />--%>
                 </div>
             </div>
         </div>
@@ -45,30 +45,39 @@
                 </div>
             </div>
             <asp:Panel Visible="false" ID="pnlExcelUpload" runat="server">
-                 <div class="row-fluid">
-                <div class=" cls-block span12">
-                   <h2>Excel Verisi</h2>
-            <asp:GridView ID="grdExcel" CssClass="table table-hover" runat="server" OnRowDataBound="grdExcel_RowDataBound"></asp:GridView>
+                <div class="row-fluid">
+                    <div class=" cls-block span12">
+                        <h2>Excel Verisi</h2>
+                       
+                        <asp:GridView ID="grdExcel" CssClass="table table-hover" runat="server" OnRowDataBound="grdExcel_RowDataBound">
+                        </asp:GridView>
 
-            <asp:UpdatePanel ID="up1" runat="server">
-                <Triggers>
-                    <asp:PostBackTrigger ControlID="btnUpload" />
-                </Triggers>
-                <ContentTemplate>
-                    <asp:FileUpload ID="fuImgPath" CssClass="btn" runat="server" />
-                    <asp:Button ID="btnUpload" CssClass="btn btn-info" runat="server" Text="Yükle" OnClick="btnTransfer_Click" />
-                    <br />
-                    <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
-                </ContentTemplate>
-            </asp:UpdatePanel>
-                    <asp:Button Visible="false" OnClick="btnFinal_Click" ID="btnFinal" style="float:right" Text="Aktar" CssClass="btn btn-success" runat="server" />
+                        <asp:UpdatePanel ID="up1" runat="server">
+                            <Triggers>
+                                <asp:PostBackTrigger ControlID="btnUpload" />
+                            </Triggers>
+                            <ContentTemplate>
+                                <asp:FileUpload ID="fuImgPath" CssClass="btn" runat="server" />
+                                <asp:Button ID="btnUpload" CssClass="btn btn-info" runat="server" Text="Yükle" OnClick="btnTransfer_Click" />
+                                <br />
+
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        <br />
+                         <asp:DropDownList Visible="false" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlExcelSheets_SelectedIndexChanged" ID="ddlExcelSheets" runat="server">
+                          
+                        </asp:DropDownList>
+
+                        <asp:Label Style="float: right" ID="lblMsg" runat="server" Text=""></asp:Label>
+                        <br />
+                        <asp:Button Visible="false" OnClick="btnFinal_Click" ID="btnFinal" Style="float: right" Text="Aktar" CssClass="btn btn-success" runat="server" />
+                    </div>
                 </div>
-            </div>
             </asp:Panel>
         </div>
     </div>
 
-  
+
     <script src="../vendors/alert.js"></script>
     <script src="../vendors/alertFunc.js"></script>
 </asp:Content>

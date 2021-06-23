@@ -34,8 +34,6 @@
             <button class="btn" data-dismiss="modal" aria-hidden="true">Kapat</button>
         </div>
     </div>
-
-
     <div class="container offset2" style="width:75%">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -75,8 +73,6 @@
     <asp:Panel ID="MsgPanel" Visible="false" runat="server">
         <asp:Label ID="msg_lbl" Text="text" runat="server" />
     </asp:Panel>
-   
     <script src="../vendors/alert.js"></script>
     <script src="../vendors/alertFunc.js"></script>
-
 </asp:Content>

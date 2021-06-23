@@ -105,6 +105,15 @@ namespace faz1.TableOperations
         protected global::System.Web.UI.WebControls.Button btnUpload;
 
         /// <summary>
+        /// ddlExcelSheets control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlExcelSheets;
+
+        /// <summary>
         /// lblMsg control.
         /// </summary>
         /// <remarks>
