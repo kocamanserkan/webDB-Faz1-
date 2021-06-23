@@ -14,8 +14,6 @@ namespace faz1.TableOperations
 {
     public partial class TableDesigning : System.Web.UI.Page
     {
-
-
         #region Data members
 
         DataTable dt = new DataTable();
@@ -51,6 +49,7 @@ namespace faz1.TableOperations
             return UserCS;
         }
 
+        #region Bind Operations
         void bindDropDown()
         {
             using (SqlConnection con = new SqlConnection(userConnecitonString()))
@@ -118,7 +117,7 @@ namespace faz1.TableOperations
                             break;
                     }
                 }
-              
+
                 grdModifyTable.DataSource = dt;
                 grdModifyTable.DataBind();
                 ViewState["dt"] = dt;
@@ -135,8 +134,9 @@ namespace faz1.TableOperations
         {
             grdModifyTable.DataSource = ViewState["dt"] as DataTable;
             grdModifyTable.DataBind();
-            
+
         }
+        #endregion
 
         protected void ddlTables_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -158,7 +158,7 @@ namespace faz1.TableOperations
                 grdModifyTable.DataBind();
                 
             }
-        }
+        }  //Trigger Bind
 
         #region GridView Operation
 
@@ -398,8 +398,6 @@ namespace faz1.TableOperations
         }
         #endregion
 
-      
-
         protected void addColumn_Click(object sender, EventArgs e)
         {
             try
@@ -495,7 +493,7 @@ namespace faz1.TableOperations
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alertMsg('Beklenmedik Bir Hata Oluştu','no')", true);
             }
 
-        }
+        } //Adding New Column to Existing Table
 
         protected void btnDeleteTable_Click(object sender, EventArgs e)
         {
@@ -534,7 +532,7 @@ namespace faz1.TableOperations
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alertMsg('Tablo Silinirken Hata Oluştu.','no')", true);
             }
-        }
+        } // Deleting Table
 
        
     }

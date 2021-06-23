@@ -11,8 +11,11 @@ namespace faz1.TableOperations
 {
     public partial class MyTables : System.Web.UI.Page
     {
+        #region Data Members
         string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         string ownerID = "";
+        #endregion
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try

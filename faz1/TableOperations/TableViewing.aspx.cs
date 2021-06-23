@@ -42,13 +42,34 @@ namespace faz1.TableOperations
                 Response.AddHeader("REFRESH", "2;URL=https://localhost:44316/login.aspx/login.aspx");
             }
         }
-        string userConnecitonString()
+
+        string userConnecitonString() // Special Conneciton String For Current User
         {
             string UserCS = cs;
             string patternToReplace = @"\bakaStaj\b";
             UserCS = Regex.Replace(UserCS, patternToReplace, userName);
             return UserCS;
         }
+        
+        protected void ddlSelectedTable_SelectedIndexChanged(object sender, EventArgs e) // Trigger bind Data
+        {
+            if (ddlSelectedTable.SelectedValue != "1")
+            {
+                pnlTableInfo.Visible = true;
+                pnlDocumantary.Visible = true;
+                pnlGrd.Visible = true;
+                bingGrid(ddlSelectedTable.SelectedValue);
+                bindInfo(ddlSelectedTable.SelectedValue);
+            }
+            else
+            {
+                pnlGrd.Visible = false;
+                pnlTableInfo.Visible = false;
+                pnlDocumantary.Visible = false;
+            }
+        }
+
+        #region Data Bind Operation
         void bindDropDown()
         {
             try
@@ -75,7 +96,7 @@ namespace faz1.TableOperations
             {
                 //
             }
-           
+
         }
         void bindInfo(string tableName)
         {
@@ -102,7 +123,7 @@ namespace faz1.TableOperations
                 }
                 con.Close();
             }
-        }
+        } //Table Information
         void bingGrid(string tablename)
         {
             using (SqlConnection con = new SqlConnection(userConnecitonString()))
@@ -119,36 +140,19 @@ namespace faz1.TableOperations
                 grdTable.DataBind();
                 con.Close();
             }
-        }
+        } //Selected Table
 
-        protected void ddlSelectedTable_SelectedIndexChanged(object sender, EventArgs e)
+        #endregion
+
+        #region Methods
+        void ExcelNew() // new method that exporting excel as .xlsx
         {
-            if (ddlSelectedTable.SelectedValue != "1")
-            {
-                pnlTableInfo.Visible = true;
-                pnlDocumantary.Visible = true;
-                pnlGrd.Visible = true;
-                bingGrid(ddlSelectedTable.SelectedValue);
-                bindInfo(ddlSelectedTable.SelectedValue);
-            }
-            else
-            {
-                pnlGrd.Visible = false;
-                pnlTableInfo.Visible = false;
-                pnlDocumantary.Visible = false;
-            }
-        }
-
-
-
-        void ExcelNew()
-        {
-            DataTable dt = new DataTable(""+ddlSelectedTable.SelectedValue+"");
+            DataTable dt = new DataTable("" + ddlSelectedTable.SelectedValue + "");
             foreach (TableCell cell in grdTable.HeaderRow.Cells)
             {
                 dt.Columns.Add(cell.Text);
             }
-           
+
             foreach (GridViewRow row in grdTable.Rows)
             {
                 dt.Rows.Add();
@@ -173,7 +177,7 @@ namespace faz1.TableOperations
                 Response.Buffer = true;
                 Response.Charset = "";
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                Response.AddHeader("content-disposition", "attachment;filename="+ddlSelectedTable.SelectedValue+".xlsx");
+                Response.AddHeader("content-disposition", "attachment;filename=" + ddlSelectedTable.SelectedValue + ".xlsx");
                 using (MemoryStream MyMemoryStream = new MemoryStream())
                 {
                     wb.SaveAs(MyMemoryStream);
@@ -185,19 +189,6 @@ namespace faz1.TableOperations
 
         }
 
-
-        protected void btnSaveExcel_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                //ExportGridToExcel();
-                ExcelNew();
-            }
-            catch (Exception)
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alertMsg('Beklenmedik bir hata oluştu.','yes')", true);
-            }
-        }
         private void ExportGridToExcel()
         {
             Response.Clear();
@@ -233,6 +224,19 @@ namespace faz1.TableOperations
             grdTable.DataBind();
         }
 
+        protected void btnSaveExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //ExportGridToExcel();
+                ExcelNew();
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alertMsg('Beklenmedik bir hata oluştu.','yes')", true);
+            }
+        }
+
         public override void VerifyRenderingInServerForm(Control control)
         {
             // controller   
@@ -251,16 +255,18 @@ namespace faz1.TableOperations
             }
 
         }
-
         protected void btnGetScript_Click(object sender, EventArgs e)
-        { 
-       
+        {
+
 
         }
 
-        protected void grdTable_RowDataBound(object sender, GridViewRowEventArgs e)
+        #endregion
+
+
+        protected void grdTable_RowDataBound(object sender, GridViewRowEventArgs e)// Hiding Entry ID from User
         {
-            e.Row.Cells[0].Visible = false; // Hiding Entry ID from User
+            e.Row.Cells[0].Visible = false; 
         }
 
 

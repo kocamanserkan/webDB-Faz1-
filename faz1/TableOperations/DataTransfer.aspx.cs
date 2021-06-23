@@ -226,7 +226,6 @@ namespace faz1.TableOperations
 
         }
 
-
         void CastandConvert(DataTable mainTable, DataTable excelTable)
         {
             DataTable oldExcelTable = new DataTable();
@@ -324,9 +323,7 @@ namespace faz1.TableOperations
                 {
                     excelTable.Rows[i]["ERRORMESSAGE"] = "Hata Yok";
                 }
-
             }
-
 
             if (errorCount > 0)
             {

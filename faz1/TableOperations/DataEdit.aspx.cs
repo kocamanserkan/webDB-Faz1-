@@ -225,8 +225,6 @@ namespace faz1.TableOperations
             try
             {
                 adapter.Fill(Table);
-               
-
             }
             catch (Exception ex)
             {
@@ -239,14 +237,11 @@ namespace faz1.TableOperations
                 Connection.Close();
             }
 
-
         }
         void CreateTemplatedGridView()
         {
 
-            // fill the table which is to bound to the GridView
             PopulateDataTable();
-            // add templated fields to the GridView
             TemplateField BtnTmpField = new TemplateField();
             BtnTmpField.ItemTemplate =
                 new DynamicallyTemplatedGridViewHandler(ListItemType.Item, "...", "Command");
@@ -259,15 +254,15 @@ namespace faz1.TableOperations
             for (int i = 0; i < Table.Columns.Count; i++)
             {
                 TemplateField ItemTmpField = new TemplateField();
-                // create HeaderTemplate
+               
                 ItemTmpField.HeaderTemplate = new DynamicallyTemplatedGridViewHandler(ListItemType.Header,
                                                               Table.Columns[i].ColumnName,
                                                               Table.Columns[i].DataType.Name);
-                // create ItemTemplate
+               
                 ItemTmpField.ItemTemplate = new DynamicallyTemplatedGridViewHandler(ListItemType.Item,
                                                               Table.Columns[i].ColumnName,
                                                               Table.Columns[i].DataType.Name);
-                //create EditItemTemplate
+               
                 ItemTmpField.EditItemTemplate = new DynamicallyTemplatedGridViewHandler(ListItemType.EditItem,
                                                               Table.Columns[i].ColumnName,
                                                               Table.Columns[i].DataType.Name);
@@ -434,7 +429,6 @@ namespace faz1.TableOperations
                 modalBtn.Visible = false;
             }
         }
-
         protected void TableGridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             e.Row.Cells[1].Visible = false; // Hiding Entry ID from User

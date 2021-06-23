@@ -30,6 +30,7 @@
                 </div>
             </div>
         </div>
+            <a href="../vendors/images/">../vendors/images/</a>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Kapat</button>
         </div>

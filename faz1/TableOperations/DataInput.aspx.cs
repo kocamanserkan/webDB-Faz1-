@@ -15,6 +15,7 @@ namespace faz1.TableOperations
 {
     public partial class DataInput : System.Web.UI.Page
     {
+        #region Data Members
         string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         string ownerID = "";
         string userName = "";
@@ -23,7 +24,17 @@ namespace faz1.TableOperations
         ArrayList ParameterArray = new ArrayList();
         public static ArrayList placeHolder = new ArrayList();
         public static ArrayList pHForNull = new ArrayList();
-
+        #endregion
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            List<string> keys = Request.Form.AllKeys.Where(key => key.Contains("txtbox")).ToList();
+            int i = 1;
+            foreach (string key in keys)
+            {
+                CreateTextBox();
+                i++;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             HttpCookie reqCookies = Request.Cookies["sessionInfo"];
@@ -41,14 +52,17 @@ namespace faz1.TableOperations
                 bindDDL();
             }
         }
-        string userConnecitonString()
+        string userConnecitonString()//Creating Connection String for Current User
         {
             string UserCS = cs;
             string patternToReplace = @"\bakaStaj\b";
             UserCS = Regex.Replace(UserCS, patternToReplace, userName);
             return UserCS;
         }
-        void bindInfo(string tableName)
+
+        #region DataBind Operation
+        void bindInfo(string tableName)// Binding Table Information
+
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
@@ -72,9 +86,8 @@ namespace faz1.TableOperations
                 }
                 con.Close();
             }
-        }
-
-        private void bindDDL()
+        } 
+        private void bindDDL()// Bindig list of tables
         {
             using (SqlConnection con = new SqlConnection(userConnecitonString()))
             {
@@ -90,31 +103,9 @@ namespace faz1.TableOperations
                 ddlTables.DataBind();
                 con.Close();
             }
-        }
+        } 
 
-        protected void ddlTables_TextChanged(object sender, EventArgs e)
-        {
-            if (ddlTables.SelectedValue != "1")
-            {
-                myPel.Controls.Clear();
-                string tableName = ddlTables.SelectedValue.ToString();
-                pnlFooterBtns.Visible = true;
-                bindGrid(tableName);
-                bindInfo(tableName);
-                btnInfoModal.Visible = true;
-                grdTable.Visible = true;
-                myPel.Visible = true;
-            }
-            else
-            {
-                btnInfoModal.Visible = false;
-                grdTable.Visible = false;
-                pnlFooterBtns.Visible = false;
-                myPel.Visible = false;
-            }
-        }
-
-        private void bindGrid(string tablename)
+        private void bindGrid(string tablename)// Binding Gridview with selected Tables
         {
             using (SqlConnection con = new SqlConnection(userConnecitonString()))
             {
@@ -161,7 +152,7 @@ namespace faz1.TableOperations
                             break;
                     }
                 }
-              
+
             }
             using (SqlConnection con = new SqlConnection(userConnecitonString()))
             {
@@ -183,7 +174,7 @@ namespace faz1.TableOperations
             for (int i = 1; i < isNullableDT.Rows.Count; i++)
             {
 
-                switch (isNullableDT.Rows[i][0].ToString())
+                switch (isNullableDT.Rows[i][0].ToString()) //Collecting Data From Columns/ Is Columns Nullable?
                 {
                     case "YES":
                         pHForNull.Add("(Boş Geçilebilir)");
@@ -199,13 +190,37 @@ namespace faz1.TableOperations
 
             grdTable.DataSource = Table;
             grdTable.DataBind();
-          
 
-            for (int i = 1; i < Table.Columns.Count; i++)
+
+            for (int i = 1; i < Table.Columns.Count; i++) // Creating Texbox with number of columns
             {
                 CreateTextBox();
             }
-        }
+        } 
+
+        #endregion
+
+        protected void ddlTables_TextChanged(object sender, EventArgs e)
+        {
+            if (ddlTables.SelectedValue != "1")
+            {
+                myPel.Controls.Clear();
+                string tableName = ddlTables.SelectedValue.ToString();
+                pnlFooterBtns.Visible = true;
+                bindGrid(tableName);
+                bindInfo(tableName);
+                btnInfoModal.Visible = true;
+                grdTable.Visible = true;
+                myPel.Visible = true;
+            }
+            else
+            {
+                btnInfoModal.Visible = false;
+                grdTable.Visible = false;
+                pnlFooterBtns.Visible = false;
+                myPel.Visible = false;
+            }
+        } //Trigger Binding Selected Tables
 
         private void CreateTextBox()
         {
@@ -243,16 +258,10 @@ namespace faz1.TableOperations
                     }
                     break;
                 case "Decimal":
-                    //cmpINT.Operator = ValidationCompareOperator.DataTypeCheck;
-                    //cmpINT.Type = ValidationDataType.Double;
-                    //cmpINT.ControlToValidate = id;
-                    //cmpINT.ErrorMessage = "Lütfen Ondalıklı Sayı Giriniz";
-                    //cmpINT.Attributes.Add("style", "color:red;float:left;");
-                    //myPel.Controls.Add(cmpINT);
+                    
                     valINT.ControlToValidate = id;
                     valINT.ErrorMessage = "Lütfen sadece ondalıklı sayı girin (Ör: 12.3)";
                     valINT.ValidationExpression = (@"^[0-9]{1,11}(?:\.([0-9]{1,3})?)?$");
-                    //valINT.ValidationExpression = (@"/^\d+(\.\d{0,2})?$/");
                     valINT.Attributes.Add("style", "color:red;float:left;");
                     myPel.Controls.Add(valINT);
                     if (isNullableDT.Rows[index][0].ToString() == "NO")
@@ -293,7 +302,7 @@ namespace faz1.TableOperations
                     break;
 
             }
-        }
+        } //Creating Dynamically TextBox
         private void saveData(string sqlText, string tableName)
         {
             try
@@ -432,7 +441,6 @@ namespace faz1.TableOperations
                         break;
                     case "DateTime":
                     case "Date":
-                        //DateTime dt = DateTime.ParseExact(ParameterArray[i].ToString(), "MM/dd/yyyy", CultureInfo.InvariantCulture);
                         if (((string)ParameterArray[i]).Contains("'"))
                         {
                             tempstr = ((string)ParameterArray[i]);
@@ -470,17 +478,6 @@ namespace faz1.TableOperations
             }
             Query = Query + ")";
             return Query;
-        }
-
-        protected void Page_Init(object sender, EventArgs e)
-        {
-            List<string> keys = Request.Form.AllKeys.Where(key => key.Contains("txtbox")).ToList();
-            int i = 1;
-            foreach (string key in keys)
-            {
-                CreateTextBox();
-                i++;
-            }
         }
 
         protected void grdTable_RowDataBound(object sender, GridViewRowEventArgs e)
