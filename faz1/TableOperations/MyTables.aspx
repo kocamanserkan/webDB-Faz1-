@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MyTables.aspx.cs" Inherits="faz1.TableOperations.MyTables" %>
 
+<%@ Register Assembly="DevExpress.Web.v21.1, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="../Scripts/jquery-1.9.1.js"></script>
     <script src="../bootstrap/js/bootstrap.js"></script>
@@ -37,6 +40,7 @@
                     </div>
                 </div>
             </div>
+           
             <div class="panel-footer">
                 <br />
                 <asp:Button Style="float: right" OnClick="btnOpenCreateField_Click" ID="btnOnayla" Text="Yeni Tablo Oluştur" CssClass="btn btn-success" runat="server" />
@@ -45,18 +49,8 @@
                 <br />
             </div>
         </div>
-
-
-
+       
     </div>
-
-
-
-
-
-
-
-
 
 
 

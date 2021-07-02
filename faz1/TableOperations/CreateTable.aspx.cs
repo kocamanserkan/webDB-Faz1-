@@ -13,11 +13,13 @@ namespace faz1.TableOperations
 {
     public partial class CreateTable : System.Web.UI.Page
     {
+        #region
         string tableName = "";
         string ownerID = "";
         string userName = "";
         string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         string url = ConfigurationManager.AppSettings["BaseUrl"].ToString();
+        #endregion
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -44,18 +46,18 @@ namespace faz1.TableOperations
         }
 
         #region Methods
-        protected void bindGrid()
+        protected void bindGrid() 
         {
             grdMyTable.DataSource = ViewState["dt"] as DataTable;
             grdMyTable.DataBind();
         }
-        string userConnecitonString()
+        string userConnecitonString() //Creating Connection String For Current User
         {
             string UserCS = cs;
             string patternToReplace = @"\bakaStaj\b";
             UserCS = Regex.Replace(UserCS, patternToReplace, userName);
             return UserCS;
-        }
+        } 
         private bool createTableOnSQL()
         {
             try
@@ -234,11 +236,11 @@ namespace faz1.TableOperations
         {
             string nullable = "";
             DataTable dt = ViewState["dt"] as DataTable;
+            //Checking Added Column is Existing in Data Table
             bool contains = dt.AsEnumerable().Any(row => txtKolonAd.Text.ToLower() == row.Field<String>("kolonAdi").ToLower());
 
             if (contains == false)
             {
-
                 if (ckbBos.Checked)
                 {
                     nullable = "Evet";
@@ -258,8 +260,6 @@ namespace faz1.TableOperations
             else
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alertMsg('Kolon Mevcut','no')", true);
-
-
             }
 
         }
@@ -287,11 +287,12 @@ namespace faz1.TableOperations
         protected void grdMyTable_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             TextBox ad = grdMyTable.Rows[e.RowIndex].FindControl("txt_KolonAd") as TextBox;
-            string asd = ad.Text;
+            string UpcolumnName = ad.Text;
             DropDownList ddl = grdMyTable.Rows[e.RowIndex].FindControl("ddlDataTypeNew") as DropDownList;
             CheckBox ckb = grdMyTable.Rows[e.RowIndex].FindControl("cbNew") as CheckBox;
 
             string nullable_Data = "";
+
             if (ckb.Checked)
             {
                 nullable_Data = "Evet";
@@ -302,7 +303,7 @@ namespace faz1.TableOperations
             }
 
             DataTable dt = ViewState["dt"] as DataTable;
-            dt.Rows[e.RowIndex]["kolonAdi"] = asd;
+            dt.Rows[e.RowIndex]["kolonAdi"] = UpcolumnName;
             dt.Rows[e.RowIndex]["kolonData"] = ddl.SelectedItem.Text;
             dt.Rows[e.RowIndex]["nullable"] = nullable_Data;
 

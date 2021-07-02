@@ -16,6 +16,7 @@ namespace faz1
         string userAd;
         string userSoyad;
         string userMail;
+        string userRole;
 
         string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         string url = ConfigurationManager.AppSettings["BaseUrl"].ToString();
@@ -34,7 +35,7 @@ namespace faz1
             List<bool> userCheck = new List<bool>();
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string sqlText = "SELECT ID_USER, USERNAME, PASSWORD, STATUS, NAME, LASTNAME, EMAIL_USER  from tbl_User" +
+                string sqlText = "SELECT ID_USER, USERNAME, PASSWORD, STATUS, NAME, LASTNAME, EMAIL_USER, ROLE  from tbl_User" +
                                  " WHERE username like @username and password = @password";
 
                 SqlCommand cmd = new SqlCommand(sqlText);
@@ -55,6 +56,7 @@ namespace faz1
                     userAd = dt.Rows[0][4].ToString();
                     userSoyad = dt.Rows[0][5].ToString();
                     userMail = dt.Rows[0][6].ToString();
+                    userRole = dt.Rows[0][7].ToString();
 
                     bool userActive = (dt.Rows[0].Field<int>(3).ToString() == "1"); //Cheking is User active
                     bool successLogin = ((ds.Tables[0].Rows.Count > 0));    //Cheking is User registered  
@@ -88,6 +90,7 @@ namespace faz1
                         sessionInfo["userAd"] = userAd.ToString();
                         sessionInfo["userSoyad"] = userSoyad.ToString();
                         sessionInfo["userMail"] = userMail;
+                        sessionInfo["userRole"] = userRole;
                         Response.Cookies.Add(sessionInfo);
 
                         Session["userName"] = txtUserName.Text;
@@ -95,6 +98,7 @@ namespace faz1
                         Session["userAd"] = userAd;
                         Session["userSoyad"] = userSoyad;
                         Session["userMail"] = userMail;
+                        Session["userRole"] = userRole;
 
 
                         //cookie'e user bilgilerinin yazılması

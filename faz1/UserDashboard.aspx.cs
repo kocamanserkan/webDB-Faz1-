@@ -22,53 +22,99 @@ namespace faz1
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+            try
+            {
+                HttpCookie reqCookies = Request.Cookies["sessionInfo"];
+                if (reqCookies == null)
+                {
+                    Response.Redirect("https://localhost:44316/login.aspx");
+                }
+                else
+                {
+                    lblUserAD.Text = reqCookies["userAd"].ToString();
+                    lbluserSoyad.Text = reqCookies["userSoyad"].ToString(); ;
+                    lblUserMail.Text = reqCookies["userMail"].ToString(); ;
+                    lblNickName = reqCookies["userName"].ToString(); ;
+                    ownerID = reqCookies["userID"].ToString();
 
-            HttpCookie reqCookies = Request.Cookies["sessionInfo"];
-            if (reqCookies == null)
-            {
-                Response.Redirect("https://localhost:44316/login.aspx");
+                    switch (reqCookies["userRole"].ToString())
+                    {
+                        case "sys_admin":
+                            lblRole.Text = "Sistem Admin";
+                            break;
+                        case "sys_mod":
+                            lblRole.Text = "Sistem Moderatör";
+                            break;
+                        case "basic_user":
+                            lblRole.Text = "Genel Kullanıcı";
+                            break;
+                        default:
+                            break;
+                    }
+
+                   
+                }
+                if (!IsPostBack)
+                {
+                    tableCount();
+                }
             }
-            else
+            catch (Exception)
             {
-                lblUserAD.Text = reqCookies["userAd"].ToString();
-                lbluserSoyad.Text = reqCookies["userSoyad"].ToString(); ;
-                lblUserMail.Text = reqCookies["userMail"].ToString(); ;
-                lblNickName = reqCookies["userName"].ToString(); ;
-                ownerID = reqCookies["userID"].ToString(); ;
-            }
-            if (!IsPostBack)
-            {
-                tableCount();
+
+
+
+               //
+
+
             }
         }
 
         
         void tableCount()
         {
-            string UserCS = cs;
-            string patternToReplace = @"\bakaStaj\b";
-            UserCS = Regex.Replace(UserCS, patternToReplace, lblNickName);
-
-            using (SqlConnection con = new SqlConnection(UserCS))
+            try
             {
-                string sqlText = "SELECT COUNT(TABLE_NAME) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'";
-                SqlCommand cmd = new SqlCommand(sqlText);
-               
-                cmd.Connection = con;
-                con.Open();
-                DataSet ds = new DataSet();
-                ds.Clear();
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(ds);
-                con.Close();
-                DataTable dt = ds.Tables[0];
+                string UserCS = cs;
+                string patternToReplace = @"\bakaStaj\b";
+                UserCS = Regex.Replace(UserCS, patternToReplace, lblNickName);
 
-                lblTableCount.Text = dt.Rows[0][0].ToString();
-                txtNewName.Text = lblUserAD.Text;
-                txtNewLastName.Text = lbluserSoyad.Text;
-                txtNewEmail.Text = lblUserMail.Text;
+                using (SqlConnection con = new SqlConnection(UserCS))
+                {
+                    string sqlText = "SELECT COUNT(TABLE_NAME) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'";
+                    SqlCommand cmd = new SqlCommand(sqlText);
 
+                    cmd.Connection = con;
+                    con.Open();
+                    DataSet ds = new DataSet();
+                    ds.Clear();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    con.Close();
+                    DataTable dt = ds.Tables[0];
+                    if(dt.Rows[0][0].ToString() == "0")
+                    {
+                        lblTableCount.Text = "Henüz Tablo Oluşturmadınız";
+                    }
+                    else
+                    {
+                        lblTableCount.Text = dt.Rows[0][0].ToString();
+
+                    }
+                   
+                    txtNewName.Text = lblUserAD.Text;
+                    txtNewLastName.Text = lbluserSoyad.Text;
+                    txtNewEmail.Text = lblUserMail.Text;
+
+                }
             }
+            catch (Exception)
+            {
+
+               //
+            }
+           
         }
 
         protected void btnUpdatePerson_Click(object sender, EventArgs e)

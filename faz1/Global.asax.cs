@@ -14,12 +14,13 @@ namespace faz1
 
         protected void Application_Start(object sender, EventArgs e)
         {
-             RouteTable.Routes.MapHttpRoute(
-            name: "DefaultApi",
-            routeTemplate: "{controller}/{id}",
-            defaults: new { id = System.Web.Http.RouteParameter.Optional }
-        );
+            string a = sender.ToString();
 
+            RouteTable.Routes.MapHttpRoute(
+           name: "DefaultApi",
+           routeTemplate: "confirmation/{controller}/{id}",
+           defaults: new { id = System.Web.Http.RouteParameter.Optional }
+       );
         }
 
         protected void Session_Start(object sender, EventArgs e)
@@ -39,7 +40,6 @@ namespace faz1
 
         protected void Application_Error(object sender, EventArgs e)
         {
-        
 
         }
 

@@ -60,6 +60,15 @@ namespace faz1
         protected global::System.Web.UI.WebControls.Button btnUpdatePerson;
 
         /// <summary>
+        /// imgProfilePhoto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgProfilePhoto;
+
+        /// <summary>
         /// lblUserAD control.
         /// </summary>
         /// <remarks>
@@ -85,6 +94,15 @@ namespace faz1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserMail;
+
+        /// <summary>
+        /// lblRole control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRole;
 
         /// <summary>
         /// lblTableCount control.

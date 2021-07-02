@@ -26,7 +26,8 @@ eventListeners();
 
 
 function eventListeners() {
-    btnAddColumn.addEventListener('click', addNewColumn);//submit column
+    btnAddColumn.ad
+    entListener('click', addNewColumn);//submit column
     columnList.addEventListener('click', updateColumn);  ////updateColumn
     columnList.addEventListener('click', deleteColumn);////delete a column
     btnDeleteAll.addEventListener('click', deleteAllColumns); ////delete al columns

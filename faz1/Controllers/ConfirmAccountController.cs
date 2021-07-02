@@ -78,9 +78,6 @@ namespace faz1.Controllers
                         response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
                         return response; 
                     }
-
-
-
                 }
             }
             catch (Exception)

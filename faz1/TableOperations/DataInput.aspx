@@ -27,6 +27,7 @@
                     <label>Son Güncelleme Tarihi</label>
                 </div>
                 <div class="span6">
+                  
                     <asp:Label ID="lblModifyDate" Text="text" runat="server" />
                 </div>
             </div>

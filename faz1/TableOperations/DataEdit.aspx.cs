@@ -301,7 +301,7 @@ namespace faz1.TableOperations
                             if (i == Table.Columns.Count - 1)
                                 Query = Query + Table.Columns[i].ColumnName + "=" + ParameterArray[i].ToString().Replace(',', '.');
                             else
-                                Query = Query + Table.Columns[i].ColumnName + "=" + ParameterArray[i] + ", ";
+                                Query = Query + Table.Columns[i].ColumnName + "=" + ParameterArray[i].ToString().Replace(',', '.') + ", ";
 
                             break;
                         case "String":

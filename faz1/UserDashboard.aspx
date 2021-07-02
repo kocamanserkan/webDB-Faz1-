@@ -6,6 +6,7 @@
     <link href="vendors/customCss.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager runat="Server"></asp:ScriptManager>
     <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -43,13 +44,10 @@
         <div class="modal-footer">
               <button class="btn" data-dismiss="modal" aria-hidden="true">Kapat</button>
             <asp:Button Text="Güncelle" style="height:auto" class="btn btn-success" OnClick="btnUpdatePerson_Click" ID="btnUpdatePerson" runat="server" />
-          
         </div>
     </div>
     <div class="container">
         <div class="well span8 offset2">
-
-
                <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">Kullanıcı Bilgisi</h3>
@@ -57,9 +55,10 @@
                         <div class="panel-body">
                             <div class="row-fluid">
                                 <div class="span3">
-                                    <img class="img-circle"
+                                    <img runat="server" ID="imgProfilePhoto" class="img-circle"
                                         src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
-                                        alt="User Pic">
+                                        alt="User Pic"><br />
+                                    <br />
                                 </div>
                                 <div class="span6">
 
@@ -70,7 +69,6 @@
 
                                                 <td>
                                                     <asp:Label Text="text" ID="lblUserAD" runat="server" /></td>
-
                                             </tr>
                                             <tr>
                                                 <td>Soyad:</td>
@@ -81,6 +79,11 @@
                                                 <td>E-mail</td>
                                                 <td>
                                                     <asp:Label Text="text" ID="lblUserMail" runat="server" /></td>
+                                            </tr>
+                                               <tr>
+                                                <td>Rol</td>
+                                                <td>
+                                                    <asp:Label Text="text" ID="lblRole" runat="server" /></td>
                                             </tr>
                                             <tr>
                                                 <td>Tablo Sayım</td>
@@ -98,8 +101,11 @@
                             <a href="#myModal" style="float: right" role="button" class="btn btn-info" data-toggle="modal">Bilgilerimi Güncelle</a>
                             <br />
                             <br />
+                                  
+                             
+
                         </div>
-                    </div>
+                   </div>
         </div>
     </div>
     <script src="vendors/alert.js"></script>

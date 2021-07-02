@@ -8,14 +8,14 @@
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+     <script src="../Scripts/jquery-1.9.1.js"></script>
     <link href="vendors/MasterPage/masterCSS.css" rel="stylesheet" />
-    <script src="../Scripts/jquery-1.9.1.js"></script>
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
 
 
     <style>
         body {
-            background-image: url(vendors/images/map-bg.svg);
+            background-image: url(../vendors/images/map-bg.svg);
             background-repeat: no-repeat;
             background-position: center center;
             background-color: #126cb1;
@@ -124,6 +124,14 @@
                         <a href="https://localhost:44316/TableOperations/TableViewing.aspx">
                             <i class="icon-zoom-in icon-white main-icon"></i>
                             <span class="nav-text">Veri Görüntüleme
+                            </span>
+                        </a>
+                    </li>
+                    
+                     <li runat="server"  visible="false" id="adminPanel" class="has-subnav">
+                        <a href="https://localhost:44316/Administration/PanelofAdmin.aspx">
+                            <i class="icon-wrench icon-white main-icon"></i>
+                            <span class="nav-text">Yönetici Paneli
                             </span>
                         </a>
                     </li>

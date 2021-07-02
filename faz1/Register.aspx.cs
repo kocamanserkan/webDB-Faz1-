@@ -46,13 +46,13 @@ namespace faz1
 
         }
 
-        //User register DB işlemleri
+        //User register DB operations
         private void addRegister()
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
                 string sqlText = "INSERT INTO tbl_User" +
-                                 " VALUES (@name, @lastName, @email, @username, @password, 0)";
+                                 " VALUES (@name, @lastName, @email, @username, @password, 0 ,'basic_User', 1)";
 
                 SqlCommand cmd = new SqlCommand(sqlText);
                 cmd.Parameters.AddWithValue("@name", txtName.Text.ToUpper());
@@ -79,8 +79,9 @@ namespace faz1
                 {
                     addRegister();
                     
+                    
                     Mail.ConfirmMail confirmMail = new Mail.ConfirmMail();
-                    string link = "https://localhost:44316/confirmAccount?username=" + txtUserName.Text + "&email=" + txtEmail.Text + "&key=ksQVLEfdtksfc9zk8BT8r9sVRrvDUmqX";
+                    string link = "https://localhost:44316/confirmation/confirmAccount?username=" + txtUserName.Text + "&email=" + txtEmail.Text + "&key=ksQVLEfdtksfc9zk8BT8r9sVRrvDUmqX";
                     //Confirmation mail
                     confirmMail.MailGonder(txtEmail.Text, link, txtName.Text.ToUpper());
                     alertMsg.InnerHtml = "Kayıt Başarılı! Aktivasyon linki <br/>" + txtEmail.Text + "</strong> adresine gönderilmiştir.";

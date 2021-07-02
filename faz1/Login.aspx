@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" EnableEventValidation="false" CodeBehind="Login.aspx.cs" Inherits="faz1.Login" %>
 
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,8 +19,8 @@
             background-size: cover;
         }
     </style>
-
 </head>
+
 <body>
     <form id="form1" runat="server">
         <br />
@@ -45,6 +46,7 @@
                         <br />
                         <a href="/Register.aspx" class="pull-right">Kayıt Ol</a>
                     </form>
+
                 </div>
             </div>
         </div>

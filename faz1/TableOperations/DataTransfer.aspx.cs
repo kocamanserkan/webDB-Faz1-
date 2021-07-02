@@ -16,10 +16,12 @@ namespace faz1.TableOperations
 {
     public partial class DataTransfer : System.Web.UI.Page
     {
+        #region Data Members
         string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         public static DataTable Table = new DataTable();
         string ownerID = "";
         string userName = "";
+        #endregion
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -48,6 +50,7 @@ namespace faz1.TableOperations
             return UserCS;
         }
 
+        #region Bind Operations
         void bindDropDown()
         {
             try
@@ -75,7 +78,8 @@ namespace faz1.TableOperations
                 //
             }
 
-        }
+        } // Selecting Table Drop Down Bind
+
         void bingGrid(string tablename)
         {
             using (SqlConnection con = new SqlConnection(userConnecitonString()))
@@ -93,7 +97,74 @@ namespace faz1.TableOperations
                 grdTable.DataBind();
                 con.Close();
             }
-        }
+        } // For Selected DropDown Item--- Binding Gridview
+
+    
+        void bindDLLexcelSheets()
+        {
+            if (fuImgPath.HasFile)
+            {
+                ddlExcelSheets.Visible = true;
+                ddlExcelSheets.Items.Clear();
+
+                string strFilePath = string.Empty;
+
+                if (fuImgPath.HasFile)
+                {
+                    string extension = System.IO.Path.GetExtension(fuImgPath.FileName);
+                    string fileExtension = System.IO.Path.GetExtension(fuImgPath.FileName);
+
+                    if (fileExtension != ".xls" && fileExtension != ".xlsx")  //Checking File extention
+                    { return; }
+
+                    string fileLocation = Server.MapPath("~/uploadFiles/") + (fuImgPath.FileName);//File Location
+
+                    if (File.Exists(fileLocation))//if the File is exist on server delete 
+                    {
+                        File.Delete(fileLocation);
+                    }
+                    fuImgPath.SaveAs(fileLocation); // Saving File
+
+                    string strConn = "";
+                    switch (fileExtension)
+                    {
+                        case ".xls": //Excel 1997-2003  
+                            strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileLocation
+            + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                            break;
+                        case ".xlsx": //Excel 2007-2010  
+                            strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation
+            + ";Extended Properties=\"Excel 12.0 xml;HDR=Yes;IMEX=2\"";
+                            break;
+                    }
+                    ViewState["excelCS"] = strConn;
+                    //Get the data from the excel sheet1 which is default  
+
+                    OleDbConnection objConn;
+                    objConn = new OleDbConnection(strConn);
+                    objConn.Open();
+                    DataTable dt = objConn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                    objConn.Close();
+                    objConn.Dispose();
+
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        item["TABLE_NAME"] = item["TABLE_NAME"].ToString().Remove(item["TABLE_NAME"].ToString().LastIndexOf('$'));
+                    }
+
+                    ddlExcelSheets.DataSource = dt;
+                    ddlExcelSheets.DataValueField = "TABLE_NAME";
+                    ddlExcelSheets.DataBind();
+                    ListItem no1 = new ListItem("Sayfa Seçiniz", "1");
+                    ddlExcelSheets.Items.Insert(0, no1);
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alertMsg('Lütfen dosya seçiniz','no')", true);
+            }
+
+        } // Getting Excell Sheets and binding drop down
 
         void bindExcelGrid(string selectedSheet)
         {
@@ -134,8 +205,11 @@ namespace faz1.TableOperations
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alertMsg('Excel tablosu doldurulurken hata oluştu.','no')", true);
             }
-           
-        }
+
+        } // For Selected Sheet Binding Excel GridView
+        #endregion
+
+
         protected void ddlSelectedTable_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlSelectedTable.SelectedValue != "1")
@@ -154,78 +228,18 @@ namespace faz1.TableOperations
             }
         }
 
-        protected void grdTable_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void btnTransfer_Click(object sender, EventArgs e)//Trigger collecting excel sheets
         {
-            e.Row.Cells[0].Visible = false;
+            bindDLLexcelSheets();
         }
 
 
-        void bindDLLexcelSheets()
+        protected void grdTable_RowDataBound(object sender, GridViewRowEventArgs e)// Hiding Entry Id from User
         {
-            if (fuImgPath.HasFile)
-            {
-                ddlExcelSheets.Visible = true;
-                ddlExcelSheets.Items.Clear();
-
-                string strFilePath = string.Empty;
-
-                if (fuImgPath.HasFile)
-                {
-                    string extension = System.IO.Path.GetExtension(fuImgPath.FileName);
-                    string fileExtension = System.IO.Path.GetExtension(fuImgPath.FileName);
-
-                    if (fileExtension != ".xls" && fileExtension != ".xlsx")  //Checking File extention
-                    { return; }
-
-                    string fileLocation = Server.MapPath("~/uploadFiles/") + (fuImgPath.FileName);//File Location
-
-                    if (File.Exists(fileLocation))//if the File is exist on server delete 
-                    {
-                        File.Delete(fileLocation);
-                    }
-                    fuImgPath.SaveAs(fileLocation); // Saving File
-
-                    string strConn = "";
-                    switch (fileExtension)
-                    {
-                        case ".xls": //Excel 1997-2003  
-                            strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileLocation
-            + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-                            break;
-                        case ".xlsx": //Excel 2007-2010  
-                            strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation
-            + ";Extended Properties=\"Excel 12.0 xml;HDR=Yes;IMEX=2\"";
-                            break;
-                    }
-                    ViewState["excelCS"] = strConn;
-                    //Get the data from the excel sheet1 which is default  
-                    
-                    OleDbConnection objConn;
-                    objConn = new OleDbConnection(strConn);
-                    objConn.Open();
-                    DataTable dt = objConn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                    objConn.Close();
-                    objConn.Dispose();
-
-                    foreach (DataRow item in dt.Rows)
-                    {
-                        item["TABLE_NAME"] = item["TABLE_NAME"].ToString().Remove(item["TABLE_NAME"].ToString().LastIndexOf('$'));
-                    }
-
-                    ddlExcelSheets.DataSource = dt;
-                    ddlExcelSheets.DataValueField = "TABLE_NAME";
-                    ddlExcelSheets.DataBind();
-                    ListItem no1 = new ListItem("Sayfa Seçiniz", "1");
-                    ddlExcelSheets.Items.Insert(0, no1);
-                }
-            }
-            else
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alertMsg('Lütfen dosya seçiniz','no')", true);
-            }
-
+            e.Row.Cells[0].Visible = false; 
         }
 
+        // Checking is Excel Table's Structure matcing with Table that created on DB
         void CastandConvert(DataTable mainTable, DataTable excelTable)
         {
             DataTable oldExcelTable = new DataTable();
@@ -337,11 +351,7 @@ namespace faz1.TableOperations
 
             grdExcel.DataSource = excelTable;
             grdExcel.DataBind();
-        }
-        protected void btnTransfer_Click(object sender, EventArgs e)
-        {
-            bindDLLexcelSheets();
-        }
+        } 
 
         protected void btnFinal_Click(object sender, EventArgs e)
         {
@@ -359,7 +369,7 @@ namespace faz1.TableOperations
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alertMsg('Veri Transferi Sırasında Hata Oluştu','no')", true);
             }
 
-        }
+        } //Trigger Transfering Excel Data to DB Table
 
         public string BulkInsert(DataTable dt, string KaydedilecekTAbloAdı)
         {
@@ -396,7 +406,7 @@ namespace faz1.TableOperations
                     return (ex.Message);
                 }
             }
-        }
+        } // SQL BULK Insert Operations
         protected void grdExcel_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             try
@@ -445,7 +455,7 @@ namespace faz1.TableOperations
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alertMsg('Excel verilerini gösterme sırasında hata oluştu.','no')", true);
             }
 
-        }
+        }// Displaying excel data with errors
 
         protected void ddlExcelSheets_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -458,6 +468,6 @@ namespace faz1.TableOperations
 
             }
 
-        }
+        } // Triggers bind Excel Grid
     }
 }
